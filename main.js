@@ -32,6 +32,10 @@ const addParticles = (x, y) => {
   }
 }
 
+const preventDefault = (e) => {
+  e.preventDefault();
+}
+
 document.addEventListener('mousedown', (event) => {
   mouseIsDown = true;
   addParticles(event.x, event.y);
@@ -44,7 +48,27 @@ document.addEventListener('mouseup', (event) => {
 document.addEventListener('mousemove', (event) => {
   if(mouseIsDown)
     addParticles(event.x, event.y);
-})
+});
+
+document.addEventListener('touchstart', (event) => {
+  document.body.addEventListener('touchmove', preventDefault, { passive: false });
+  mouseIsDown = true;
+  addParticles(event.x, event.y);
+});
+
+document.addEventListener('touchend', (event) => {
+  mouseIsDown = false;
+});
+
+document.addEventListener('touchmove', (event) => {
+  document.body.addEventListener('touchmove', preventDefault, { passive: false });
+  
+  const x = event.targetTouches[0].screenX;
+  const y = event.targetTouches[0].screenY;
+  
+  if(mouseIsDown)
+    addParticles(x, y);
+});
 
 const drawAndUpdateParticles = () => {
   particles.forEach(particle => {
