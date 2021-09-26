@@ -120,6 +120,20 @@ const removeParticles = () => {
   }
 }
 
+// clear the screen
+const reset = () => {
+  particles = [];
+}
+
+// clear the screen and spawn a bunch of randomly placed particles
+const randomize = () => {
+  particles = [];
+
+  for(let i = 0; i < 1000; i++) {
+    particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+  }
+}
+
 const animate = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   
