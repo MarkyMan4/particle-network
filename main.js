@@ -125,12 +125,17 @@ const reset = () => {
   particles = [];
 }
 
+const sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // clear the screen and spawn a bunch of randomly placed particles
-const randomize = () => {
+const randomize = async () => {
   particles = [];
 
   for(let i = 0; i < 1000; i++) {
     particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+    await sleep(10);
   }
 }
 
